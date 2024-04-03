@@ -1,0 +1,64 @@
+using System;
+
+namespace Excepciones
+{
+    //Vamos a crear una aplicación de consola que generé un numero aleatorio. La aplicación solicitará al usuario un número, en el caso de que el número introducido sea:
+
+    //Mayor mostrará un mensaje: El número es más pequeño.
+    //Menor mostrará un mensaje: El número es más grande.
+    //El usuario dispondrá de 10 intentos para adivinar el número.
+
+    //1 – Controla las excepciones posibles que se pueden producir en la aplicación.
+
+    //2 – Crea una excepción personalizada para lanzarla cuando el número es mayor o menor.
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            //Console.WriteLine("Introduce un número: ");
+            //int n = int.Parse(Console.ReadLine());
+
+            
+            Random rnd = new Random();
+            int r = rnd.Next(1,100);
+            Console.WriteLine(r);
+
+            for (int i = 0; i < 10; i++)
+            {
+                try
+                {
+                    //int n = int.Parse(Console.ReadLine());
+                    Console.Write("Intento " + (i + 1) + ". ");
+                    Console.WriteLine();
+                    Console.WriteLine("Introduce un número: ");
+                    
+                    string num = Console.ReadLine();
+                    int n;
+
+                    if (!int.TryParse(num, out n))
+                    {
+                        throw new Exception("Por favor introduce un número válido.");
+                    }
+                    else if (r > n)
+                    {
+                        throw new Exception("El número es más grande.");
+                    }
+                    else if (r < n)
+                    {
+                        throw new Exception("El número es más pequeño.");
+                    }
+                    else if (r == n)
+                    {
+                        Console.Write("¡Has adivinado el número!");
+                        break;
+                    }
+                    else { throw new Exception("Sin intentos."); }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
+        }
+    }
+}
